@@ -21,14 +21,8 @@ const createOrUpdate = async (data = {}) =>{
 // Read all users
 const readAllUsers = async()=>{
     try{
-       const data = user.scan().exec((error, results) => {
-            if (error) {
-                console.error(error,'err');
-            } else {
-               return results
-            }
-        });
-        return { success: true, data }
+        const items= await user.scan().exec()
+        return { success: true, data:items }
 
     } catch(error){
         console.log(error.message)
