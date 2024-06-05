@@ -17,7 +17,26 @@ const createOrUpdate = async (data = {}) =>{
         return { success: false}
     }
 }
-
+const updateUser = async (value, key = 'id') => {
+    const params = {
+        TableName: Table,
+        Key: {
+            [key]: parseInt(value)
+        }
+    }
+    try{
+       await user.update(params,(error, request) => {
+        if (error) {
+            console.error(error);
+        } else {
+            console.log("DynamoTable create request object:", request);
+        }
+    }).exec()
+        return { success: true }
+    } catch(error){
+        return { success: false}
+    }
+}
 // Read all users
 const readAllUsers = async()=>{
     try{
@@ -70,5 +89,6 @@ export {
     createOrUpdate,
     readAllUsers,
     getUserById,
-    deleteUserById
+    deleteUserById,
+    updateUser
 }
